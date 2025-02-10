@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Application</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.5em;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #007bff;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-group button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .form-group button:hover {
+      background-color: #0056b3;
+    }
+    .balance {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #28a745;
+    }
+    .transaction-history {
+      margin-top: 20px;
+    }
+    .transaction-history h3 {
+      color: #007bff;
+    }
+    .transaction-history ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .transaction-history li {
+      background-color: #f8f9fa;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Welcome to DevOps Bank
+  </header>
+
+  <div class="container">
+    <h2>Account Overview</h2>
+    <div class="balance">
+      Current Balance: <span id="balance">$5000.00</span>
+    </div>
+
+    <h2>Transactions</h2>
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input type="number" id="amount" placeholder="Enter amount">
+    </div>
+    <div class="form-group">
+      <button onclick="deposit()">Deposit</button>
+      <button onclick="withdraw()">Withdraw</button>
+    </div>
+
+    <div class="transaction-history">
+      <h3>Transaction History</h3>
+      <ul id="transaction-list">
+        <li>Initial Balance: $5000.00</li>
+      </ul>
+    </div>
+
+    <h2>Services</h2>
+    <div class="form-group">
+      <button onclick="applyCreditCard()">Apply for Credit Card</button>
+      <button onclick="applyLoan()">Apply for Loan</button>
+      <button onclick="contactSupport()">Contact Support</button>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2023 DevOps Bank. All rights reserved.
+  </footer>
+
+  <script>
+    let balance = 5000.00;
+    const transactionList = document.getElementById('transaction-list');
+
+    function updateBalance() {
+      document.getElementById('balance').textContent = `$${balance.toFixed(2)}`;
+    }
+
+    function deposit() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      if (amount > 0) {
+        balance += amount;
+        updateBalance();
+        addTransaction(`Deposit: +$${amount.toFixed(2)}`);
+      } else {
+        alert('Please enter a valid amount.');
+      }
+    }
+
+    function withdraw() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      if (amount > 0 && amount <= balance) {
+        balance -= amount;
+        updateBalance();
+        addTransaction(`Withdrawal: -$${amount.toFixed(2)}`);
+      } else {
+        alert('Insufficient funds or invalid amount.');
+      }
+    }
+
+    function addTransaction(description) {
+      const li = document.createElement('li');
+      li.textContent = description;
+      transactionList.appendChild(li);
+    }
+
+    function applyCreditCard() {
+      alert('Credit card application submitted. We will contact you shortly.');
+    }
+
+    function applyLoan() {
+      alert('Loan application submitted. We will contact you shortly.');
+    }
+
+    function contactSupport() {
+      alert('Please call our support team at 1-800-123-4567.');
+    }
+  </script>
+</body>
+</html>
